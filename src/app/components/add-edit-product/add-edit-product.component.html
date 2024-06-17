@@ -1,1 +1,29 @@
-<p>add-edit-product works!</p>
+<app-progress-bar *ngIf="loading">  </app-progress-bar>
+<div *ngIf="!loading" class="row justify-content-center mt-2">
+    <div class="col-md-6">
+        <div class="card text-white bg-secondary mb-3 mx-auto">
+            <div class="card-header text-center">{{operacion}}  PRODUCTO</div>
+            <div class="card-body">
+
+                <form [formGroup]="form" (ngSubmit)="addProduct()">
+
+                    <input formControlName="name" type="text" class="form-control" placeholder="Nombre" >
+                        <span *ngIf="form.get('name')?.hasError('required') && form.get('name')?.touched"> El nombre es obligatorio </span>
+                    <input formControlName="description" type="text" class="form-control mt-2" placeholder="Descripción" >
+                        <span *ngIf="form.get('description')?.hasError('required') && form.get('description')?.touched"> La descripción es obligatoria </span>
+                    <input formControlName="price" type="number" class="form-control mt-2" placeholder="Precio" >
+                        <span *ngIf="form.get('price')?.hasError('required') && form.get('price')?.touched "> El precio es obligatorio </span>
+                    <input formControlName="stock" type="number" class="form-control mt-2 mb-3" placeholder="Stock" >
+                        <span *ngIf="form.get('stock')?.hasError('required') && form.get('stock')?.touched "> El stock es obligatorio </span>
+                    
+                    <div class="text-center mb-3">
+                        <button type="submit" class="btn btn-primary btn-block mx-2">AGREGAR</button>    
+                        <button [disabled]="form.invalid" class="btn btn-danger btn-block" routerLink="/">CANCELAR</button>
+                    </div>
+                       
+                
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

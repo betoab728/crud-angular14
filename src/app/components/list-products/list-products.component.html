@@ -1,24 +1,34 @@
-<div class="container">
+<app-progress-bar *ngIf="loading"></app-progress-bar>
+<div *ngIf="!loading" class="container">
+  <div class="title m-2">
     <h1 class="text-center">LISTADO DE PRODUCTOS</h1>
-<table class="table table-hover">
-    <thead>
-      <tr class="table-primary">
-        <th scope="col">NOMBRE</th>
-        <th scope="col">DESCRIPCION</th>
-        <th scope="col">PRECIO</th>
-        <th scope="col">STOCK</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="table-active">
-        <th scope="row">Active</th>
-        <td>Column content</td>
-        <td>Column content</td>
-        <td>Column content</td>
-        <td>Column content</td>
-      </tr>
-    </tbody>
+    <button class="btn btn-primary " routerLink="/add"> NUEVO PRODUCTO</button>
+  </div>
+   
+  <table *ngIf="listProducts.length > 0" class="table table-hover">
+        <thead>
+          <tr class="table-primary">
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCION</th>
+            <th scope="col">PRECIO</th>
+            <th scope="col">STOCK</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listProducts">
+           
+            <td >{{ item.name }}</td>
+            <td >{{ item.description }}</td>
+            <td >{{ item.price | currency }}</td>
+            <td >{{ item.stock }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm m-1" routerLink="/edit/{{ item.id }}"> Editar </button>
+              <button (click)="deleteProduct(item.id!)" class="btn btn-danger btn-sm" type="button"  > Eliminar </button>
+            </td>
+          </tr>
+        </tbody>
   </table>
+  <h5 class="text-center" *ngIf="listProducts.length == 0">No hay Productos</h5>
 
 </div>
